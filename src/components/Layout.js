@@ -115,7 +115,8 @@ class Layout extends Component {
                     loading: false,
                     matrixInputValue: outputMatrix,
                     inputValue: JSON.stringify(outputMatrix),
-                    generatedMatrix: fillSeatMatrix(outputMatrix, passengerCount)
+                    generatedMatrix: fillSeatMatrix(outputMatrix, passengerCount),
+                    errorMessage: ''
                 })
             }, 500)
         }
