@@ -12,7 +12,6 @@ class Seat {
 	}
 }
 
-
 const fillSeatMatrix = (groupList, passengerCount) => {
 	let aisle = [];
 	let window = [];
@@ -59,10 +58,16 @@ const fillSeatMatrix = (groupList, passengerCount) => {
 			for (let i = 0; i < matrixGroup[0]; i++) {
 				let tempNode = new Seat(groupIndex, i, 0, 'window')
 				tempArray.push(tempNode)
+
+				if (groupList.length === 1 && matrixGroup[0].length > 1) {
+					let tempNode = new Seat(groupIndex, i, matrixGroup[1] -1, 'window')
+					tempArray.push(tempNode)
+				}
 			}
 			window.push(tempArray)
 		}
-		if (groupIndex === groupList.length - 1) {
+		
+		if (groupIndex === groupList.length - 1 && matrixGroup[1] > 1) {
 			let tempArray = [];
 			for (let i = 0; i < matrixGroup[0]; i++) {
 				let tempNode = new Seat(groupIndex, i, matrixGroup[1] - 1, 'window')
@@ -88,8 +93,9 @@ const fillSeatMatrix = (groupList, passengerCount) => {
 
 	const fillMatrix = () => {
 		for (let i = 0; i < groupList.length; i++) {
-			
-			if (groupList[i][1] >= 1) {
+
+			// The first condition says that one group will have two windows and no aisles 
+			if (groupList.length !== 1 && groupList[i][1] >= 1) {
 				getAisleSeats(groupList[i], i);
 			}
 			getWindowSeats(groupList[i], i);
@@ -107,6 +113,7 @@ const fillSeatMatrix = (groupList, passengerCount) => {
 		...sortBy(flattenDeep(window), ['row', 'matrixId']),
 		...sortBy(flattenDeep(center), ['row', 'matrixId'])
 	]
+
 	map(sortedList, seat => {
 		if (count > passengerCount) return;
 		seat.passengerIdx = count
