@@ -1,24 +1,30 @@
 import React, { PureComponent } from 'react'
-
+import Seat from './Armchair.png'
 class SeatLayout extends PureComponent {
 
-    renderSeatCell = (value, isAisle, isWindow) => {
-        const seatClass = isAisle ? 'asile' : isWindow ? 'window' : '';
+    renderSeatCell = (index, rowIndex, colIndex) => {
+       const { seatGroupList } = this.props;
+        const currentSeat = seatGroupList.find(seat => seat.matrixId === index && seat.row === rowIndex && seat.column === colIndex)
+        const seatFilledClass = currentSeat?.passengerIdx > 0 ? 'filled' : 'unfilled';
         return (
-            <div className={`seat ${seatClass}`}>{value}</div>
+            <div key={`group-${index}-${rowIndex}-${colIndex}`} className={`seat ${currentSeat?.category} ${seatFilledClass}`}>
+                {currentSeat?.passengerIdx > 0 ? currentSeat?.passengerIdx : '-'}
+                <img src={Seat} alt="seat" />
+                <div className="overlay" />
+            </div>
         )
     }
     
-    renderRow = (matrixRow) => {
-        return (
-            <div className="seatRow">
-                {matrixRow.map(column => this.renderSeatCell(column))}
+    renderRow = (matrixRow, index, rowIndex) => {
+       return (
+            <div className="seatRow" key={`group-${index}-${rowIndex}`}>
+                {matrixRow.map((column, colIndex) => this.renderSeatCell(index, rowIndex, colIndex))}
             </div>
         )
     }
 
     render() {
-        const { totalPassengers, seatGroupList, seatLayout } = this.props;
+        const { totalPassengers, seatLayout } = this.props;
 
         return (
             <div className='plane-container'>
@@ -34,21 +40,9 @@ class SeatLayout extends PureComponent {
                     <div className="seat-list">
                         {seatLayout.map((group, index) => {
                             return (
-                            <div className="seat-group" key={`group-${index}`}>
-                            {
-                                group.map((matrixRow, rowIndex) => {
-                                    return (
-                                    <div className="seatRow" key={`group-${index}-${rowIndex}`}>
-                                        {matrixRow.map((column, colIndex) => {
-                                            const currentSeat = seatGroupList.find(seat => seat.matrixId === index && seat.row === rowIndex && seat.column === colIndex)
-                                            return (
-                                                <div key={`group-${index}-${rowIndex}-${colIndex}`} className={`seat ${currentSeat?.category}`}>{currentSeat?.passengerIdx ?? 0}</div>
-                                            )
-                                        })}
-                                    </div>
-                                    )
-                            })}
-                            </div>
+                                <div className="seat-group" key={`group-${index}`}>
+                                {group.map((matrixRow, rowIndex) => this.renderRow(matrixRow, index, rowIndex))}
+                                </div>
                             )
                         })}
                     </div>

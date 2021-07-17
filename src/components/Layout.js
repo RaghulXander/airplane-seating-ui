@@ -143,21 +143,19 @@ class Layout extends Component {
             <div className='page-header'>
                   <header>Airplane Seating Mechanism</header>
                   <div className="rules-container">
-                      <div className="rules">Rules</div>
-                      <div>
-                          <ol>
-                              <li>Always seat passengers starting from the front row to	back, starting from the left	to	the	right</li>
-                              <li>Fill	aisle seats	first followed by window seats followed	by center seats (any order in center seats)	</li>
-                          </ol>
-                      </div>
+                      <div className="rules">Rules:</div>
+                      <ol>
+                        <li>Always seat passengers starting from the front row to	back, starting from the left	to	the	right</li>
+                        <li>Fill	aisle seats	first followed by window seats followed	by center seats (any order in center seats)	</li>
+                      </ol>
                   </div>
                 <div className="matrix-form-input">
                 <div className="input-1">
-                    <label>Enter Seat Matrix Input</label>
+                    <label>Enter Seat Matrix Input <sup><b>*</b></sup></label>
                     <input ref={this.seatMatrixInputRef} placeholder="Enter Seat Matrix Input" value={`${inputValue}`} onChange={this.handleMatrixChange} />
                 </div>
                 <div className="input-2">
-                    <label>Enter Passenger Queue Matrix Input</label>
+                    <label>Enter Passenger Queue Input (in Numbers) <sup><b>*</b></sup></label>
                     <input ref={this.passengerInputRef} placeholder="Enter Passenger Queue Matrix Input" value={passengerCount} onChange={this.handlePassengerCount}/>
                 </div>
                 <button onClick={() => this.handleMatrixCreation()}>Fill Seats</button>
@@ -165,7 +163,6 @@ class Layout extends Component {
                 {errorMessage && <div className="error">{errorMessage}</div>}
               </div>
               {loading ? <div className="loader"></div> : <SeatLayout totalPassengers={passengerCount} seatGroupList={generatedMatrix} seatLayout={this.getSeatMatrix()} /> }
-              
           </main>
       )
   }
