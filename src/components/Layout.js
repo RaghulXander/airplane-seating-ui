@@ -39,9 +39,17 @@ class Layout extends Component {
     passengerInputRef = React.createRef()
 
     validateInputMatrix = (inputValue) => {
-        let matrix = JSON.parse(inputValue)
+        let matrix = [];
         let output = []
         let error = ""
+        try {
+            matrix = JSON.parse(inputValue)
+        }
+        catch (err) {
+            if (err) {
+                error = "Not an Valid Array!!" 
+            }
+        }
 
         if (!isArray(matrix)) error = "Not an Valid Array!!" 
 
@@ -118,7 +126,7 @@ class Layout extends Component {
                     generatedMatrix: fillSeatMatrix(outputMatrix, passengerCount),
                     errorMessage: ''
                 })
-            }, 500)
+            }, 100)
         }
         
     }
