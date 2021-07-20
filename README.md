@@ -1,7 +1,6 @@
 # Airplane Seating Algorithm
 
-Write a program that helps seat audiences in a flight based on the
-following input and rules.
+Visualize about how the filling of seats happen for Airplane Passengers. We have some input constraints and rules to fill the seat which is explained here.
 
 ### Rules for seating
     • Always seat passengers starting from the front row to back, starting from the left to the right
