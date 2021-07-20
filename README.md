@@ -2,6 +2,9 @@
 
 Visualize about how the filling of seats happen for Airplane Passengers. We have some input constraints and rules to fill the seat which is explained here.
 
+
+[VIEW DEMO](https://blissful-wiles-d9a977.netlify.app/)
+
 ### Rules for seating
     • Always seat passengers starting from the front row to back, starting from the left to the right
     • Fill aisle seats first followed by window seats followed by center seats (any order in center seats)
